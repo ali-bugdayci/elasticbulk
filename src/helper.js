@@ -1,3 +1,5 @@
+let _ = require('lodash');
+
 module.exports.log = options => {
 	return v => {
 		if (options.debug && v.errors) {
