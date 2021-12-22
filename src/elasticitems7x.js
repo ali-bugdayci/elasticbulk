@@ -4,6 +4,7 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const isStream = require('is-stream');
 const elasticsearch = require('elasticsearch');
+const helper = require('./helper');
 
 /**
  * data is json array of objects or stream
@@ -98,7 +99,6 @@ module.exports.addItemsStream = function(elastic, stream, options) {
         .then(function(res) {
           counter = 0;
           items = []
-          console.log(added + ' series added!');
           added++
           stream.resume()
         })
@@ -149,10 +149,5 @@ module.exports.addBulkItems = function(elastic, items, options) {
     index: options.index,
     body: body
   })
-  .then(v => {
-
-    if (options.debug && v.errors) {
-      console.log(JSON.stringify(v, null, 2));
-    }
-  })
+  .then(helper.log(options));
 }

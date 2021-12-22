@@ -4,7 +4,7 @@ const _ = require('lodash');
 const Promise = require('bluebird');
 const isStream = require('is-stream');
 const ItemsAPI = require('itemsapi');
-
+const helper = require('./helper');
 
 /**
  * data is json array of objects or stream
@@ -82,7 +82,6 @@ module.exports.addItemsStream = function(index, stream, options) {
         .then(function(res) {
           counter = 0;
           items = []
-          console.log(added + ' series added!');
           added++
           stream.resume()
         })
@@ -127,10 +126,5 @@ module.exports.addBulkItems = function(index, items, options) {
   }
 
   return index.addItems(body)
-  .then(v => {
-
-    if (options.debug && v.errors) {
-      console.log(JSON.stringify(v, null, 2));
-    }
-  })
+  .then(helper.log(options));
 }

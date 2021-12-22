@@ -81,7 +81,6 @@ module.exports.addItemsStream = function(stream, options) {
         .then(function(res) {
           counter = 0;
           items = []
-          console.log(added + ' series added!');
           added++
           stream.resume()
         })
