@@ -41,13 +41,7 @@ module.exports.import = function(data, options, schema) {
 
       return elastic.indices.create({
         index: options.index,
-        body: {
-          mappings: {
-            [options.type]: {
-              properties: schema
-            }
-          }
-        }
+        body: schema
       })
     }
   })
